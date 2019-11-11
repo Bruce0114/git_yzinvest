@@ -1,0 +1,50 @@
+
+关键概念：市场加速度(摆动)
+
+内容：尝试理解风险在市场中传导/转移的 速度 和 加速度
+
+风险传导/转移的大小：用 成交量加权平均价 代表
+
+市场加速度：用来指示或预测STMM（短期动量）或从STMM到MR（均值回归）的过渡
+
+计算市场加速度需要三个参数：1）时间流逝/推移（Time lapse）
+		             2）成交量（Volume）
+		             3）价格变动（Price movement）
+
+日内交易重要时间周期：1sec，10 secs，1min，6mins
+
+计算步骤：1）单周期内，计算VWAP（成交量加权平均价）
+	2）用前一周期数据，计算Delta of VWAP（-> 问题：VWAP的变动/变化还是变化率？）
+	3）在Delta of VWAP上使用smoothing算法或DL
+	4）将多个周期堆叠/叠加在一起或用DL来解释相互作用（-> 问题：什么相互作用？）
+
+
+
+问题收集 Question Collection：
+
+
+X axis: time? or signal movement? and what is 'signal movement'? which 'signal'?（important）
+Y axis: absolute value of delta VWAP?
+
+
+How to define/or what comprises the weighting portfolio?
+
+
+Delta of VWAP（VWAP的变化还是变化率？）
+
+
+What is 'DL'? -> Deep Learning?
+
+
+将多个周期堆叠/叠加在一起或用DL来解释相互作用（-> 问题：什么相互作用？）
+
+
+What does the 'smoothing' algorithm/parameter involve?
+
+
+What does it mean by 'stack' multiple periods（build periods upon one another）?
+-> connect one to another in tandem?
+
+
+Are there any sample codes to refer to or do I start/develop from scratch? 
+
