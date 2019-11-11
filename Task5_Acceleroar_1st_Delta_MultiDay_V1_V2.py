@@ -321,12 +321,12 @@ for product_id in product_id_series:
     resample_trading_10S_multidays_df = pd.DataFrame()
     
     # Set start and end date
-    start = date(2019, 11, 4)  # set date(YYYY, M, D) as the start date for data retrival
-    end = date(2019, 11, 7)    
+    start_date = '2019-10-01'  # set date(YYYY, M, D) as the start date for data retrival
+    end_date = '2019-11-07'    
 #     end = datetime.date.today() + datetime.timedelta(days=1)
 
     # Create a date list
-    date_list = return_date_list(start, end)
+    date_list = yz.get_trade_day(start_date=start_date, end_date=end_date)
     
     for date in date_list:
         ticks_df = load_tick_data(instrument_id, date)
