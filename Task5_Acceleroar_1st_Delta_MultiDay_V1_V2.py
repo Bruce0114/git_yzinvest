@@ -846,13 +846,14 @@ for product_id in product_id_series:
 
     # Step1: calculate rolling standard deviation (std.)
     
-    resample_trading_10S_multidays_ex_time = resample_trading_10S_multidays_df['exchange_time']
-    resample_trading_10S_multidays_df.drop(['exchange_time'], axis=1, inplace=True)
+    # key lines for multi-day rolling operations
+    # drop the first few obs everyday to generate continuous rolling results
+    # without these 2 lines of code, multi-day rolling will be conducted separately for every single day
+    resample_trading_10S_multidays_df.drop(['ddelta_vwap', 'volume', 'turnover', 'volume_shift', 'turnover_shift'], axis=1, inplace=True)
+    resample_trading_10S_multidays_df.dropna(inplace=True)  
     
     # Lookback period initially set up at n=100
     rolling_std_d_10S = resample_trading_10S_multidays_df['delta_vwap'].rolling(100).std()
-    
-    resample_trading_10S_multidays_df['exchange_time'] = resample_trading_10S_multidays_ex_time
         
     # Step2: use rolling std. calculated from (t0 to ti) to standardize/normalize the value of delta_vwap at ti
 
@@ -985,32 +986,6 @@ for product_id in product_id_series:
     fig.write_image('D:\\Yangze_Investment\\Task5_Acceleroar\\plots\\BarChart\\Delta(1st)_NoAbs_Multi_Days\\' + instrument_id + 'signal(delta)_bin(no_abs)_10S_Multi_Days_V2.png')
     
 # predict_direction_10S_multidays_df.to_csv('D:\\Yangze_Investment\\Task5_Acceleroar\\data\\Multi_Days\\predict_direction_10S_multidays_df.csv')    
-
-
-# import numpy as np
-
-# shift_param = 1
-
-# a = predict_direction_10S_multidays_df.tail(10)
-# a['bin_stanrdard_delta_shift1'].iloc[0:shift_param] = np.nan
-# a
-
-
-# resample_trading_10S_df['instrument_id']
-# predict_direction_10S_df.to_csv('D:\\Yangze_Investment\\Task5_Acceleroar\\data\\Multi_Days\\' + instrument_id + 'predict_direction_10S_df_V2.csv')
-
-
-# rolling_std_d_10S.to_csv('D:\\Yangze_Investment\\Task5_Acceleroar\\data\\Multi_Days\\' + instrument_id + 'rolling_std_d_10S_V2.csv')
-# standard_delta_vwap_10S.to_csv('D:\\Yangze_Investment\\Task5_Acceleroar\\data\\Multi_Days\\' + instrument_id + 'standard_delta_vwap_10S_V2.csv')
-
-
-resample_trading_10S_multidays_df['price_change_10S'] = price_change_10S
-resample_trading_10S_multidays_df['rolling_std_d_10S'] = round(rolling_std_d_10S, 2)
-resample_trading_10S_multidays_df['standard_delta_vwap_10S'] = round(standard_delta_vwap_10S, 5)
-resample_trading_10S_multidays_df['bin_stanrdard_delta_10S'] = bin_stanrdard_delta_10S
-
-
-# resample_trading_10S_multidays_df.to_csv('D:\\Yangze_Investment\\Task5_Acceleroar\\data\\Multi_Days\\' + instrument_id + 'resample_trading_10S_multidays_df_V2.csv')
 
 
 resample_trading_10S_multidays_drop_df = resample_trading_10S_multidays_df.drop(['volume', 'turnover', 'volume_shift', 'turnover_shift'], axis=1)
